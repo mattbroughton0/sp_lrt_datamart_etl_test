@@ -62,7 +62,7 @@ names(stgInitMatch) <- tolower(names(stgInitMatch))
 
 noMatch <- initApcDunn[is.na(dunn_event_no) & !is.na(record_id) & !(arinc_revised_station_id %in% c("MAAM", "UNDP")) &
                          abs(arinc_apc_depart_diff) < 180,
-                       .(event_no, record_id, sched_calendar_id_date, opd_date, depart_date, site_id, revised_car, 
+                       .(event_no, record_id, sched_calendar_id_date, opd_date, depart_date site_id, revised_car, 
                          apc_dep_time, apc_depart_datetime, arinc_depart_datetime, arinc_revised_station_id, arinc_trip_direction)]
 
 # get the arinc stage records
@@ -73,7 +73,7 @@ setkey(noMatch, event_no)
 noMatchInit[, event_no := stg_init_match_event_no]
 setkey(noMatchInit, event_no)
 noMatchInit <- merge(noMatchInit, noMatch[, .(event_no, apc_dep_time, apc_depart_datetime)])
-write.csv(noMatchInit, file = "nov_5_no_match_init.csv")
+write.csv(noMatchInit, file = "nov_5__match_init.csv")
 
 setkey(noMatch, record_id, site_id)
 setkey(stgArincMatch, record_id, site_id)
